@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBuilder {
-  
+
     private List<MainMenuItem> mainItem = new ArrayList<>();
-    private final List<SideMenuItem> sideItem = new ArrayList<>();
+    private List<SideMenuItem> sideItem = new ArrayList<>();
     
-    public OrderBuilder(List<MainMenuItem> mainItem){
+    public OrderBuilder(List<MainMenuItem> mainItem, List<SideMenuItem> sideItem){
         this.mainItem = mainItem;
+        this.sideItem = sideItem;
     }
 
     public OrderBuilder addMain(MainMenuType type, int quantity, int taste){

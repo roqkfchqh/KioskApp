@@ -1,6 +1,5 @@
 package State;
 
-import Menu.Side.SideMenuFactory;
 import Menu.Side.SideMenuType;
 import Exception.BadInputException;
 import Order.OrderBuilder;
@@ -25,7 +24,6 @@ public class SideMenuState implements OrderState{
                 System.out.println("\n\n" + type.getName() + "을(를) 선택했습니다.");
 
                 orderBuilder.addSide(type, 1);
-                status.getCart().addSideMenuItem(SideMenuFactory.createSideMenu(type, 1));
                 System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");
 
             }else if(choice == 11){

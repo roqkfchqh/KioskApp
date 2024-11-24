@@ -1,16 +1,16 @@
 package Main;
 
 import Exception.BadInputException;
+import Order.OrderBuilder;
 import State.MainMenuState;
 import State.StateHandler;
-import Cart.Cart;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Cart cart = new Cart();
-        StateHandler stateHandler = new StateHandler(cart);
+        OrderBuilder orderBuilder = new OrderBuilder();
+        StateHandler stateHandler = new StateHandler(orderBuilder);
         stateHandler.setCurrentState(MainMenuState.getInstance());
 
         Scanner scanner = new Scanner(System.in);

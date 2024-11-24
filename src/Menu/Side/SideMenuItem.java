@@ -3,7 +3,7 @@ package Menu.Side;
 public class SideMenuItem {
   
     private final SideMenuType type;
-    private final int quantity;
+    private int quantity;
 
     public SideMenuItem(SideMenuType type, int quantity) {
         this.type = type;
@@ -16,6 +16,10 @@ public class SideMenuItem {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
     }
 
     public double getTotalPrice(){

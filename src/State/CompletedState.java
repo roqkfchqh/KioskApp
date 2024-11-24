@@ -14,7 +14,7 @@ public class CompletedState implements OrderState{
     }
 
     @Override
-    public void displayMenu() {
+    public void displayMenu(StateHandler status) {
         
     }
 }

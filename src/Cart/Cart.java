@@ -21,6 +21,10 @@ public class Cart {
         this.sideMenuItems = new ArrayList<>();
     }
 
+    public boolean isEmpty(){
+        return mainMenuItems.isEmpty() && sideMenuItems.isEmpty();
+    }
+
     public void addMainMenuItem(MainMenuItem item){
         mainMenuItems.add(item);
     }
@@ -47,7 +51,7 @@ public class Cart {
     }
 
     public double getTotalPriceCoupon(){
-        return coupon.applyCoupon(getTotalPrice(), 1);
+        return coupon.applyCoupon(getTotalPrice());
     }
 
     public void displayCart(){
@@ -63,7 +67,7 @@ public class Cart {
     }
 
     public Order createOrder(){
-        OrderBuilder orderBuilder = new OrderBuilder(mainMenuItems, sideMenuItems);
+        OrderBuilder orderBuilder = new OrderBuilder();
         return orderBuilder.build();
     }
 }

@@ -1,24 +1,31 @@
 package State;
 
+import Cart.Cart;
+
 public class StateHandler {
   
     private OrderState currentState;
-    private boolean cartEmpty = true;
+    private Cart cart;
 
-    public StateHandler(OrderState initialState){
-        this.currentState = initialState;
+    public StateHandler(Cart cart) {
+        this.currentState = currentState;
+        this.cart = new Cart();
+    }
+
+    public Cart getCart(){
+        return cart;
+    }
+
+    public void setCart(Cart cart){
+        this.cart = cart;
+    }
+
+    public boolean isCartEmpty(){
+        return cart.isEmpty();
     }
 
     public void setCurrentState(OrderState state){
         currentState = state;
-    }
-
-    public boolean isCartEmpty(){
-        return cartEmpty;
-    }
-
-    public void setCartEmpty(boolean cartEmpty){
-        this.cartEmpty = cartEmpty;
     }
 
     public void handleInput(String input){
@@ -26,6 +33,6 @@ public class StateHandler {
     }
 
     public void displayMenu(){
-        currentState.displayMenu();
+        currentState.displayMenu(this);
     }
 }

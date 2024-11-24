@@ -12,8 +12,8 @@ import java.util.List;
 
 public class OrderBuilder {
 
-    private final List<MainMenuItem> mainItem = new ArrayList<>();
-    private final List<SideMenuItem> sideItem = new ArrayList<>();
+    private static final List<MainMenuItem> mainItem = new ArrayList<>();
+    private static final List<SideMenuItem> sideItem = new ArrayList<>();
 
     public OrderBuilder addMain(MainMenuType type, int quantity, int taste){
         mainItem.add(MainMenuFactory.createMainMenu(type, quantity, taste));

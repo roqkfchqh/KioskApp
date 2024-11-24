@@ -1,14 +1,20 @@
 package State;
 
 import Cart.Cart;
+import Order.OrderBuilder;
 
 public class StateHandler {
   
     private OrderState currentState;
     private Cart cart;
 
+    private final OrderBuilder orderBuilder = new OrderBuilder();
+
+    public OrderBuilder getOrderBuilder() {
+        return orderBuilder;
+    }
+
     public StateHandler(Cart cart) {
-        this.currentState = currentState;
         this.cart = new Cart();
     }
 

@@ -1,6 +1,12 @@
 package State;
 
+import Menu.Main.MainMenuItem;
+import Menu.Side.SideMenuItem;
+import Order.OrderBuilder;
+
 public class CartState implements OrderState{
+
+    private final OrderBuilder orderBuilder = new OrderBuilder();
 
     private static final CartState instance = new CartState();
 

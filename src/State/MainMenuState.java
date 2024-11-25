@@ -43,7 +43,7 @@ public class MainMenuState implements OrderState {
                     default -> throw new BadInputException("이상한거 고르지마셈");
                 };
                 if(taste >= 1 && taste <= 5){
-                    status.getOrderBuilder().addMain(type, 1, taste);
+                    status.getOrderBuilder().addMain(type, taste);
                     System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");
                 }
             }else if(choice == 11){
@@ -55,6 +55,10 @@ public class MainMenuState implements OrderState {
                 }
                 status.setCurrentState(SideMenuState.getInstance());
             }else if(choice == 13){
+                if(status.isMainEmpty()){
+                    status.setCurrentState(MainMenuState.getInstance());
+                    throw new BadInputException("메인메뉴 없이 장바구니로 갈 수 없습니다.");
+                }
                 status.setCurrentState(CartState.getInstance());
             }else{
                 throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
@@ -64,10 +68,6 @@ public class MainMenuState implements OrderState {
         }
     }
 
-    /**TODO: 안보이는 메뉴 선택했을 때의 예외처리 해야됨
-     *
-     *
-     */
     @Override
     public void displayMenu(StateHandler status) {
         int index = 1;

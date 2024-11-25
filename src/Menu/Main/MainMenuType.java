@@ -1,5 +1,9 @@
 package Menu.Main;
 
+import Exception.BadInputException;
+
+import java.util.Objects;
+
 public enum MainMenuType {
   
     YEOP_TTEOKBOKKI(1, "엽기떡볶이", 1.4, "압도적 1위 엽기떡볶이"),
@@ -19,10 +23,6 @@ public enum MainMenuType {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -33,5 +33,13 @@ public enum MainMenuType {
 
     public String getDescription() {
         return description;
+    }
+
+    public static MainMenuType findName(String name){
+        for(MainMenuType type : values()){
+            if(Objects.equals(type.getName(), name)){
+                return type;
+            }
+        }throw new BadInputException("유효하지 않은 id입니다.");
     }
 }

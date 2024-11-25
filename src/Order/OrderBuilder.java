@@ -25,37 +25,40 @@ public class OrderBuilder {
         return mainItem.isEmpty();
     }
 
-    public void addMain(MainMenuType type, int quantity, int taste){
+    public void addMain(MainMenuType type, int taste){
         mainItem.stream()
                 .filter(item -> item.getType() == type && item.getTaste() == taste)
                 .findFirst()
                 .ifPresentOrElse(
-                        item -> item.setQuantity(item.getQuantity() + quantity),
-                        () -> mainItem.add(MainMenuFactory.createMainMenu(type, quantity, taste))
+                        item -> item.setQuantity(item.getQuantity() + 1),
+                        () -> mainItem.add(MainMenuFactory.createMainMenu(type, 1, taste))
                 );
     }
 
-    public void addSide(SideMenuType type, int quantity){
+    public void addSide(SideMenuType type){
         sideItem.stream()
                 .filter(item -> item.getType() == type)
                 .findFirst()
                 .ifPresentOrElse(
                         item -> {
-                            if(item.getQuantity() + quantity > type.getMaxQuantity()){
+                            if(item.getQuantity() + 1 > type.getMaxQuantity()){
                                 throw new BadInputException("최대 주문 가능 수량을 초과했습니다.");
                             }
-                            item.setQuantity(item.getQuantity() + quantity);
+                            item.setQuantity(item.getQuantity() + 1);
                         },
-                        () -> sideItem.add(SideMenuFactory.createSideMenu(type, quantity))
+                        () -> sideItem.add(SideMenuFactory.createSideMenu(type, 1))
                 );
     }
 
-    public void deleteMain(){
+    public void deleteMain(String name) {
+        MainMenuType type = MainMenuType.findName(name);
+        mainItem.removeIf(item -> item.getType() == type);
 
     }
 
-    public void deleteSide(){
-
+    public void deleteSide(String name) {
+        SideMenuType type = SideMenuType.findName(name);
+        sideItem.removeIf(item -> item.getType() == type);
     }
 
     public void clearMenu(){

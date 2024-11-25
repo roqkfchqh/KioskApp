@@ -1,5 +1,9 @@
 package Menu.Side;
 
+import Exception.BadInputException;
+
+import java.util.Objects;
+
 public enum SideMenuType {
   
     TTEOK_ADD(1, "떡추가", 0.1, 1),
@@ -23,10 +27,6 @@ public enum SideMenuType {
         this.maxQuantity = maxQuantity;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -37,5 +37,13 @@ public enum SideMenuType {
 
     public int getMaxQuantity() {
         return maxQuantity;
+    }
+
+    public static SideMenuType findName(String name){
+        for(SideMenuType type : values()){
+            if(Objects.equals(type.getName(), name)){
+                return type;
+            }
+        }throw new BadInputException("존재하지 않는 메뉴입니다.");
     }
 }

@@ -2,6 +2,8 @@ package State;
 
 import Exception.BadInputException;
 
+import java.util.concurrent.TimeUnit;
+
 public class PaymentState implements OrderState{
 
     private static final PaymentState instance = new PaymentState();
@@ -15,12 +17,20 @@ public class PaymentState implements OrderState{
         try{
             int choice = Integer.parseInt(input);
             switch(choice){
-                case 1 -> status.setCurrentState(CompletedState.getInstance());
+                case 1 -> {
+                    System.out.println("결제가 완료되었습니다.");
+                    status.displayOrder();
+                    System.out.println("\n 5초 뒤에 메인화면으로 돌아갑니다.");
+                    TimeUnit.SECONDS.sleep(5);
+                    status.setCurrentState(MainMenuState.getInstance());
+                }
                 case 2 -> status.setCurrentState(CartState.getInstance());
                 default -> throw new BadInputException("올바른 입력값이 아닙니다.");
             }
         }catch(BadInputException e){
             throw new BadInputException(e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

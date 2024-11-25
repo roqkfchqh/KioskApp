@@ -2,13 +2,16 @@ package State;
 
 import Order.OrderBuilder;
 import Order.Coupon;
+import Order.Order;
 
 public class StateHandler {
   
     private OrderState currentState;
     private final OrderBuilder orderBuilder = new OrderBuilder();
+    private final Order order;
 
     public StateHandler(OrderBuilder orderBuilder){
+        this.order = orderBuilder.build();
     }
 
     public OrderBuilder getOrderBuilder() {
@@ -25,7 +28,6 @@ public class StateHandler {
 
     public void setCoupon(Coupon coupon){
         orderBuilder.setCoupon(coupon);
-        System.out.println(coupon.getCouponName() + "이 적용되었습니다.");
     }
 
     public void setCurrentState(OrderState state){
@@ -42,5 +44,9 @@ public class StateHandler {
 
     public void displayCoupon(){
         Coupon.displayCoupon();
+    }
+
+    public void displayOrder(){
+        order.displayOrder();
     }
 }

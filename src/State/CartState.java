@@ -30,18 +30,25 @@ public class CartState implements OrderState{
                 case 12 -> status.setCurrentState(SideMenuState.getInstance());
                 case 14 -> status.getOrderBuilder().deleteMenu();
                 case 15 -> {
-                    status.displayCoupon();
-                    System.out.println("적용하실 쿠폰을 선택해주세요:");
-                    String couponInput = new java.util.Scanner(System.in).nextLine();
-                    int couponChoice = Integer.parseInt(couponInput);
-                    Coupon coupon = switch(couponChoice){
-                        case 1 -> Coupon.COUPON_10;
-                        case 2 -> Coupon.COUPON_20;
-                        case 3 -> Coupon.COUPON_33;
-                        case 4 -> throw new BadInputException("장바구니로 돌아갑니다.");
-                        default -> throw new BadInputException("그런 쿠폰 없음");
-                    };
-                    status.setCoupon(coupon);
+                    if(!status.isCouponEmpty()){
+                        System.out.println("쿠폰 적용을 취소합니다.");
+                        status.setCoupon(null);
+                    }else{
+                        System.out.println("\n\n쿠폰 선택");
+                        status.displayCoupon();
+                        System.out.println("적용하실 쿠폰을 선택해주세요:");
+                        int couponInput = new java.util.Scanner(System.in).nextInt();
+                        Coupon coupon = switch(couponInput){
+                            case 1 -> Coupon.COUPON_10;
+                            case 2 -> Coupon.COUPON_20;
+                            case 3 -> Coupon.COUPON_33;
+                            case 4 -> Coupon.COUPON_50;
+                            case 5 -> throw new BadInputException("장바구니로 돌아갑니다.");
+                            default -> throw new BadInputException("그런 쿠폰 없음");
+                        };
+                        status.setCoupon(coupon);
+                        System.out.println(coupon.getCouponName() + "이 적용되었습니다.");
+                    }
                 }
                 case 16 -> status.setCurrentState(PaymentState.getInstance());
                 default -> throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
@@ -54,6 +61,7 @@ public class CartState implements OrderState{
 
     @Override
     public void displayMenu(StateHandler status) {
+        System.out.println("\n\n장바구니");
         status.getOrderBuilder().displayBuilder();
         if(!status.isCartEmpty()){
             System.out.println("\n11. 메인 메뉴 더 담기");
@@ -61,6 +69,8 @@ public class CartState implements OrderState{
             System.out.println("14. 메뉴 삭제하기");
             if(status.isCouponEmpty()){
                 System.out.println("\n15. 쿠폰 적용하기");
+            }else{
+                System.out.println("15. 쿠폰 적용 취소하기");
             }
             System.out.println("16. 주문하기");
         }

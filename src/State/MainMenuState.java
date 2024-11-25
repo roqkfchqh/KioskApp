@@ -20,17 +20,18 @@ public class MainMenuState implements OrderState {
                 MainMenuType type = MainMenuType.values()[choice-1];
                 System.out.println("\n\n" + type.getName() + "을(를) 선택했습니다.");
 
-                System.out.println("맛을 선택하세요:");
+                System.out.println("맵기를 선택하세요");
                 System.out.println("1. 착한맛");
                 System.out.println("2. 초보맛");
                 System.out.println("3. 약간매운맛");
                 System.out.println("4. 보통맛");
                 System.out.println("5. 매운맛");
                 System.out.println("11. 메인 메뉴로 돌아가기");
+                System.out.println("\nexit. 키오스크 종료");
+                System.out.println("\n번호를 입력하세요:");
 
-                String tasteInput = new java.util.Scanner(System.in).nextLine();
-                int tasteChoice = Integer.parseInt(tasteInput);
-                int taste = switch(tasteChoice){
+                int tasteInput = new java.util.Scanner(System.in).nextInt();
+                int taste = switch(tasteInput){
                     case 1 -> 1;
                     case 2 -> 2;
                     case 3 -> 3;

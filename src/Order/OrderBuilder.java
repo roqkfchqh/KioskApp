@@ -78,7 +78,6 @@ public class OrderBuilder {
     }
 
     public void displayBuilder(){
-        System.out.println("\n\n장바구니:");
         for(MainMenuItem item : mainItem){
             item.displayMain();
         }

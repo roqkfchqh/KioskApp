@@ -1,5 +1,6 @@
 package Order;
 
+import Exception.BadInputException;
 import Menu.Main.MainMenuFactory;
 import Menu.Main.MainMenuItem;
 import Menu.Main.MainMenuType;
@@ -31,8 +32,14 @@ public class OrderBuilder {
     }
 
     public void addSide(SideMenuType type, int quantity){
+        if(mainItem.isEmpty()){
+            throw new BadInputException("메인 메뉴 없이 주문할 수 없습니다.");
+        }
         for(SideMenuItem item : sideItem){
             if(item.getType() == type){
+                if(quantity > type.getMaxQuantity()){
+                    throw new BadInputException("최대 주문 가능 수량을 초과했습니다.");
+                }
                 item.setQuantity(item.getQuantity() + quantity);
                 return;
             }
@@ -40,8 +47,24 @@ public class OrderBuilder {
         sideItem.add(SideMenuFactory.createSideMenu(type, quantity));
     }
 
+    public void deleteMenu(){
+        System.out.println("\n\n삭제할 메뉴를 골라주세요:\n");
+        for(MainMenuItem item : mainItem){
+            item.displayMain();
+        }
+        for(SideMenuItem item : sideItem){
+            item.displaySide();
+        }
+        String deleteInput = new java.util.Scanner(System.in).nextLine();
+        int deleteChoice = Integer.parseInt(deleteInput);
+    }
+
     public void setCoupon(Coupon coupon){
         this.coupon = coupon;
+    }
+
+    public boolean isCouponEmpty(){
+        return coupon == null;
     }
 
     public double totalPrice(){
@@ -49,13 +72,13 @@ public class OrderBuilder {
                 + sideItem.stream().mapToDouble(SideMenuItem::getTotalPrice).sum();
     }
 
-    public double couponPrice(){
-        if(coupon == null) return totalPrice();
-        return coupon.applyCoupon(totalPrice());
+    public String couponPrice(){
+        if(coupon == null) return String.format("%.2f", totalPrice());
+        return String.format("%.2f" ,coupon.applyCoupon(totalPrice()));
     }
 
     public void displayBuilder(){
-        System.out.println("장바구니:");
+        System.out.println("\n\n장바구니:");
         for(MainMenuItem item : mainItem){
             item.displayMain();
         }
@@ -65,7 +88,7 @@ public class OrderBuilder {
         if(coupon == null){
             System.out.println("총 금액: W" + totalPrice());
         }else{
-            System.out.println(coupon.getCouponName() + "을 적용한 총 금액: W" + totalPrice());
+            System.out.println(coupon.getCouponName() + "을 적용한 총 금액: W" + couponPrice());
         }
     }
 

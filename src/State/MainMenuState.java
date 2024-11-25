@@ -39,7 +39,7 @@ public class MainMenuState implements OrderState {
                     case 11 -> 11;
                     case 12 -> 12;
                     case 13 -> 13;
-                    default -> throw new BadInputException(".");
+                    default -> throw new BadInputException("이상한거 고르지마셈");
                 };
                 if(taste >= 1 && taste <= 5){
                     status.getOrderBuilder().addMain(type, 1, taste);
@@ -59,6 +59,10 @@ public class MainMenuState implements OrderState {
         }
     }
 
+    /**TODO: 안보이는 메뉴 선택했을 때의 예외처리 해야됨
+     *
+     *
+     */
     @Override
     public void displayMenu(StateHandler status) {
         int index = 1;

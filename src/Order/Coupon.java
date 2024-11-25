@@ -24,4 +24,11 @@ public enum Coupon {
     public double applyCoupon(double price){
         return calculation.apply(price);
     }
+
+    public static void displayCoupon(){
+        System.out.println("\n\n1. " + COUPON_10.couponName);
+        System.out.println("2. " + COUPON_20.couponName);
+        System.out.println("3. " + COUPON_33.couponName);
+        System.out.println("4. " + "적용 안함");
+    }
 }

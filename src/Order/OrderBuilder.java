@@ -13,8 +13,8 @@ import java.util.List;
 
 public class OrderBuilder {
 
-    private static final List<MainMenuItem> mainItem = new ArrayList<>();
-    private static final List<SideMenuItem> sideItem = new ArrayList<>();
+    private final List<MainMenuItem> mainItem = new ArrayList<>();
+    private final List<SideMenuItem> sideItem = new ArrayList<>();
     private Coupon coupon;
 
     public boolean isEmpty() {
@@ -59,6 +59,12 @@ public class OrderBuilder {
         int deleteChoice = Integer.parseInt(deleteInput);
     }
 
+    public void clearMenu(){
+        mainItem.clear();
+        sideItem.clear();
+        coupon = null;
+    }
+
     public void setCoupon(Coupon coupon){
         this.coupon = coupon;
     }
@@ -72,9 +78,9 @@ public class OrderBuilder {
                 + sideItem.stream().mapToDouble(SideMenuItem::getTotalPrice).sum();
     }
 
-    public String couponPrice(){
-        if(coupon == null) return String.format("%.2f", totalPrice());
-        return String.format("%.2f" ,coupon.applyCoupon(totalPrice()));
+    public double couponPrice(){
+        if(coupon == null) return totalPrice();
+        return coupon.applyCoupon(totalPrice());
     }
 
     public void displayBuilder(){
@@ -85,13 +91,14 @@ public class OrderBuilder {
             item.displaySide();
         }
         if(coupon == null){
-            System.out.println("총 금액: W" + totalPrice());
+            System.out.println("총 금액: W" + String.format("%.2f", totalPrice()));
         }else{
-            System.out.println(coupon.getCouponName() + "을 적용한 총 금액: W" + couponPrice());
+            System.out.println(coupon.getCouponName() + "을 적용한 총 금액: W" + String.format("%.2f", couponPrice()));
         }
     }
 
     public Order build(){
-        return new Order(new ArrayList<>(mainItem), new ArrayList<>(sideItem), couponPrice());
+        String finalPrice = String.format("%.2f", couponPrice());
+        return new Order(new ArrayList<>(mainItem), new ArrayList<>(sideItem), finalPrice);
     }
 }

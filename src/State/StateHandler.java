@@ -8,11 +8,6 @@ public class StateHandler {
   
     private OrderState currentState;
     private final OrderBuilder orderBuilder = new OrderBuilder();
-    private final Order order;
-
-    public StateHandler(OrderBuilder orderBuilder){
-        this.order = orderBuilder.build();
-    }
 
     public OrderBuilder getOrderBuilder() {
         return orderBuilder;
@@ -24,6 +19,11 @@ public class StateHandler {
 
     public boolean isCouponEmpty(){
         return orderBuilder.isCouponEmpty();
+    }
+
+
+    public void clearMenu(){
+        orderBuilder.clearMenu();
     }
 
     public void setCoupon(Coupon coupon){
@@ -47,6 +47,7 @@ public class StateHandler {
     }
 
     public void displayOrder(){
+        Order order = orderBuilder.build();
         order.displayOrder();
     }
 }

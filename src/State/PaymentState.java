@@ -20,7 +20,8 @@ public class PaymentState implements OrderState{
                 case 1 -> {
                     System.out.println("결제가 완료되었습니다.");
                     status.displayOrder();
-                    System.out.println("\n 5초 뒤에 메인화면으로 돌아갑니다.");
+                    System.out.println("\n5초 뒤에 메인화면으로 돌아갑니다.");
+                    status.clearMenu();
                     TimeUnit.SECONDS.sleep(5);
                     status.setCurrentState(MainMenuState.getInstance());
                 }

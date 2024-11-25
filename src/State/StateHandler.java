@@ -21,6 +21,9 @@ public class StateHandler {
         return orderBuilder.isCouponEmpty();
     }
 
+    public boolean isMainEmpty(){
+        return orderBuilder.mainEmpty();
+    }
 
     public void clearMenu(){
         orderBuilder.clearMenu();

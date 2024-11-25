@@ -18,7 +18,7 @@ public class PaymentState implements OrderState{
             int choice = Integer.parseInt(input);
             switch(choice){
                 case 1 -> {
-                    System.out.println("결제가 완료되었습니다.");
+                    System.out.println("\n\n결제가 완료되었습니다.\n");
                     status.displayOrder();
                     System.out.println("\n5초 뒤에 메인화면으로 돌아갑니다.");
                     status.clearMenu();

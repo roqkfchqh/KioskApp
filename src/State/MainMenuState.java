@@ -49,6 +49,10 @@ public class MainMenuState implements OrderState {
             }else if(choice == 11){
                 displayMenu(status);
             }else if(choice == 12){
+                if(status.isMainEmpty()){
+                    status.setCurrentState(MainMenuState.getInstance());
+                    throw new BadInputException("메인메뉴 없이 주문할 수 없습니다.");
+                }
                 status.setCurrentState(SideMenuState.getInstance());
             }else if(choice == 13){
                 status.setCurrentState(CartState.getInstance());
@@ -56,7 +60,7 @@ public class MainMenuState implements OrderState {
                 throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
             }
         }catch(BadInputException e){
-            System.out.println("잘못된 입력입니다. 다시 시도해주세요");
+            System.out.println(e.getMessage());
         }
     }
 

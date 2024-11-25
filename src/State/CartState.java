@@ -27,8 +27,14 @@ public class CartState implements OrderState{
 
             switch(choice){
                 case 11 -> status.setCurrentState(MainMenuState.getInstance());
-                case 12 -> status.setCurrentState(SideMenuState.getInstance());
-                case 14 -> status.getOrderBuilder().deleteMenu();
+                case 12 -> {
+                    if(status.isMainEmpty()){
+                        status.setCurrentState(MainMenuState.getInstance());
+                        throw new BadInputException("메인메뉴 없이 주문할 수 없습니다.");
+                    }
+                    status.setCurrentState(SideMenuState.getInstance());
+                }
+                case 14 -> status.getOrderBuilder().deleteMain();
                 case 15 -> {
                     if(!status.isCouponEmpty()){
                         System.out.println("쿠폰 적용을 취소합니다.");

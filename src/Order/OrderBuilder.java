@@ -21,42 +21,41 @@ public class OrderBuilder {
         return mainItem.isEmpty() && sideItem.isEmpty();
     }
 
+    public boolean mainEmpty(){
+        return mainItem.isEmpty();
+    }
+
     public void addMain(MainMenuType type, int quantity, int taste){
-        for(MainMenuItem item : mainItem){
-            if(item.getType() == type && item.getTaste() == taste){
-                item.setQuantity(item.getQuantity() + quantity);
-                return;
-            }
-        }
-        mainItem.add(MainMenuFactory.createMainMenu(type, quantity, taste));
+        mainItem.stream()
+                .filter(item -> item.getType() == type && item.getTaste() == taste)
+                .findFirst()
+                .ifPresentOrElse(
+                        item -> item.setQuantity(item.getQuantity() + quantity),
+                        () -> mainItem.add(MainMenuFactory.createMainMenu(type, quantity, taste))
+                );
     }
 
     public void addSide(SideMenuType type, int quantity){
-        if(mainItem.isEmpty()){
-            throw new BadInputException("메인 메뉴 없이 주문할 수 없습니다.");
-        }
-        for(SideMenuItem item : sideItem){
-            if(item.getType() == type){
-                if(quantity > type.getMaxQuantity()){
-                    throw new BadInputException("최대 주문 가능 수량을 초과했습니다.");
-                }
-                item.setQuantity(item.getQuantity() + quantity);
-                return;
-            }
-        }
-        sideItem.add(SideMenuFactory.createSideMenu(type, quantity));
+        sideItem.stream()
+                .filter(item -> item.getType() == type)
+                .findFirst()
+                .ifPresentOrElse(
+                        item -> {
+                            if(item.getQuantity() + quantity > type.getMaxQuantity()){
+                                throw new BadInputException("최대 주문 가능 수량을 초과했습니다.");
+                            }
+                            item.setQuantity(item.getQuantity() + quantity);
+                        },
+                        () -> sideItem.add(SideMenuFactory.createSideMenu(type, quantity))
+                );
     }
 
-    public void deleteMenu(){
-        System.out.println("\n\n삭제할 메뉴를 골라주세요:\n");
-        for(MainMenuItem item : mainItem){
-            item.displayMain();
-        }
-        for(SideMenuItem item : sideItem){
-            item.displaySide();
-        }
-        String deleteInput = new java.util.Scanner(System.in).nextLine();
-        int deleteChoice = Integer.parseInt(deleteInput);
+    public void deleteMain(){
+
+    }
+
+    public void deleteSide(){
+
     }
 
     public void clearMenu(){

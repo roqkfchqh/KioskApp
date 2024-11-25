@@ -34,7 +34,7 @@ public class SideMenuState implements OrderState{
                 throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
             }
         }catch(BadInputException e){
-            System.out.println("잘못된 입력입니다. 다시 시도해주세요");
+            System.out.println(e.getMessage());
         }
     }
 

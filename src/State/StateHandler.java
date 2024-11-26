@@ -13,6 +13,14 @@ public class StateHandler {
         return orderBuilder;
     }
 
+    public void setCoupon(Coupon coupon){
+        orderBuilder.setCoupon(coupon);
+    }
+
+    public void setCurrentState(OrderState state){
+        currentState = state;
+    }
+
     public boolean isCartEmpty(){
         return orderBuilder.isEmpty();
     }
@@ -27,14 +35,6 @@ public class StateHandler {
 
     public void clearMenu(){
         orderBuilder.clearMenu();
-    }
-
-    public void setCoupon(Coupon coupon){
-        orderBuilder.setCoupon(coupon);
-    }
-
-    public void setCurrentState(OrderState state){
-        currentState = state;
     }
 
     public void handleInput(String input){

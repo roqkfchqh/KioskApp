@@ -1,10 +1,9 @@
 package Order;
 
 import Exception.BadInputException;
-import Menu.Main.MainMenuFactory;
+import Menu.MenuFactory;
 import Menu.Main.MainMenuItem;
 import Menu.Main.MainMenuType;
-import Menu.Side.SideMenuFactory;
 import Menu.Side.SideMenuItem;
 import Menu.Side.SideMenuType;
 
@@ -31,7 +30,7 @@ public class OrderBuilder {
                 .findFirst()
                 .ifPresentOrElse(
                         item -> item.setQuantity(item.getQuantity() + 1),
-                        () -> mainItem.add(MainMenuFactory.createMainMenu(type, 1, taste))
+                        () -> mainItem.add(MenuFactory.createMainMenu(type, 1, taste))
                 );
     }
 
@@ -46,7 +45,7 @@ public class OrderBuilder {
                             }
                             item.setQuantity(item.getQuantity() + 1);
                         },
-                        () -> sideItem.add(SideMenuFactory.createSideMenu(type, 1))
+                        () -> sideItem.add(MenuFactory.createSideMenu(type, 1))
                 );
     }
 

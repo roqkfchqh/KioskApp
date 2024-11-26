@@ -2,19 +2,14 @@ package State;
 
 import Exception.BadInputException;
 import Order.Coupon;
-import Order.OrderBuilder;
 
 public class CartState implements OrderState{
-
-    private final OrderBuilder orderBuilder = new OrderBuilder();
 
     private static final CartState instance = new CartState();
 
     public static CartState getInstance(){
         return instance;
     }
-
-    private Coupon coupon;
 
     @Override
     public void handleInput(StateHandler status, String input) {

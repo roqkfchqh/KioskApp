@@ -40,9 +40,9 @@ public class MainMenuState implements OrderState {
                     case 11 -> 11;
                     case 12 -> 12;
                     case 13 -> 13;
-                    default -> throw new BadInputException("이상한거 고르지마셈");
+                    default -> throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
                 };
-                if(taste >= 1 && taste <= 5){
+                if(taste <= 5){
                     status.getOrderBuilder().addMain(type, taste);
                     System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");
                 }

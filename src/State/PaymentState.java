@@ -26,7 +26,7 @@ public class PaymentState implements OrderState{
                     status.setCurrentState(MainMenuState.getInstance());
                 }
                 case 2 -> status.setCurrentState(CartState.getInstance());
-                default -> throw new BadInputException("올바른 입력값이 아닙니다.");
+                default -> throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
             }
         }catch(BadInputException e){
             throw new BadInputException(e.getMessage());

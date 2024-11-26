@@ -2,7 +2,6 @@ package State;
 
 import Menu.Side.SideMenuType;
 import Exception.BadInputException;
-import Order.OrderBuilder;
 
 public class SideMenuState implements OrderState{
 
@@ -11,8 +10,6 @@ public class SideMenuState implements OrderState{
     public static SideMenuState getInstance(){
         return instance;
     }
-
-    private final OrderBuilder orderBuilder = new OrderBuilder();
 
     @Override
     public void handleInput(StateHandler status, String input) {

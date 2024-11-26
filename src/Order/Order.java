@@ -17,6 +17,9 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    /**
+     * 주문내역 ui
+     */
     public void displayOrder(){
         System.out.println("주문 내역:");
         for(MainMenuItem item : mainItem){

@@ -26,6 +26,7 @@ public class SideMenuItem {
         return type.getPrice() * quantity;
     }
 
+    //장바구니용 사이드메뉴 ui
     public void displaySide(){
         System.out.println(type.getName() + " | W " + type.getPrice() + " | " + quantity + "개");
     }

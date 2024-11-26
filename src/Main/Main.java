@@ -18,8 +18,10 @@ public class Main {
             try{
                 stateHandler.displayMenu();
 
+                //이곳의 input 이 stateHandler 의 input
                 String input = scanner.nextLine();
 
+                //exit 입력시 종료
                 if("exit".equalsIgnoreCase(input)){
                     System.out.println("키오스크 종료");
                     break;

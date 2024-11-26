@@ -34,6 +34,7 @@ public class MainMenuItem{
         return type.getPrice() * quantity;
     }
 
+    //장바구니용 메인메뉴 ui
     public void displayMain(){
         String tasteInput = switch(taste){
             case 1 -> "착한맛";

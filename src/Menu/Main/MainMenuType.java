@@ -2,6 +2,7 @@ package Menu.Main;
 
 import Exception.BadInputException;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public enum MainMenuType {
@@ -35,11 +36,15 @@ public enum MainMenuType {
         return description;
     }
 
+    /**
+     * 특정 메인메뉴 찾아주는 메서드
+     * @param name 메인메뉴 이름
+     * @return name 과 같은 메뉴 타입
+     */
     public static MainMenuType findName(String name){
-        for(MainMenuType type : values()){
-            if(Objects.equals(type.getName(), name)){
-                return type;
-            }
-        }throw new BadInputException("유효하지 않은 id입니다.");
+        return Arrays.stream(values())
+                .filter(type -> Objects.equals(type.getName(), name))
+                .findFirst()
+                .orElseThrow(() -> new BadInputException("존재하지 않는 메뉴입니다."));
     }
 }

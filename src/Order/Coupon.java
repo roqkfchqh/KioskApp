@@ -20,10 +20,18 @@ public enum Coupon {
         return couponName;
     }
 
+    /**
+     * 쿠폰 적용가 계산 메서드
+     * @param price 쿠폰 제외 합산금액
+     * @return 쿠폰 포함한 금액
+     */
     public double applyCoupon(double price){
         return calculation.apply(price);
     }
 
+    /**
+     * 쿠폰 ui
+     */
     public static void displayCoupon(){
         System.out.println("1. " + COUPON_10.couponName);
         System.out.println("2. " + COUPON_20.couponName);

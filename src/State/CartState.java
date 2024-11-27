@@ -3,6 +3,8 @@ package State;
 import Exception.BadInputException;
 import Order.Coupon;
 
+import static Main.Main.exitHandler;
+
 public class CartState implements OrderState{
 
     private static final CartState instance = new CartState();
@@ -30,6 +32,7 @@ public class CartState implements OrderState{
                 case 14 -> {
                     System.out.println("1. 메인 메뉴에서 삭제 | 2. 사이드 메뉴에서 삭제");
                     String delete = new java.util.Scanner(System.in).nextLine();
+                    exitHandler(delete);
                     switch(delete){
                         case "1" -> {
                             System.out.println("삭제할 메인 메뉴의 이름을 정확히 입력해주세요:");
@@ -46,6 +49,7 @@ public class CartState implements OrderState{
                         case "2" -> {
                             System.out.println("삭제할 사이드 메뉴의 이름을 정확히 입력해주세요:");
                             String index = new java.util.Scanner(System.in).nextLine();
+                            exitHandler(index);
                             status.getOrderBuilder().deleteSide(index);
                             System.out.println("해당 메뉴가 삭제되었습니다.");
 
@@ -67,15 +71,9 @@ public class CartState implements OrderState{
                         System.out.println("\n\n쿠폰 선택");
                         status.displayCoupon();
                         System.out.println("적용하실 쿠폰을 선택해주세요:");
-                        int couponInput = new java.util.Scanner(System.in).nextInt();
-                        Coupon coupon = switch(couponInput){
-                            case 1 -> Coupon.COUPON_10;
-                            case 2 -> Coupon.COUPON_20;
-                            case 3 -> Coupon.COUPON_33;
-                            case 4 -> Coupon.COUPON_50;
-                            case 5 -> throw new BadInputException("장바구니로 돌아갑니다.");
-                            default -> throw new BadInputException("존재하지 않는 쿠폰입니다.");
-                        };
+                        String couponInput = new java.util.Scanner(System.in).nextLine();
+                        exitHandler(couponInput);
+                        Coupon coupon = Coupon.getCoupon(Integer.parseInt(couponInput));
                         status.setCoupon(coupon);
                         System.out.println(coupon.getCouponName() + "이 적용되었습니다.");
                     }

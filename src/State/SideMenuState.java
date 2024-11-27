@@ -1,8 +1,9 @@
 package State;
 
-import Menu.Main.MainMenuItem;
 import Menu.Side.SideMenuType;
 import Exception.BadInputException;
+
+import static Main.Main.exitHandler;
 
 public class SideMenuState implements OrderState{
 
@@ -24,6 +25,7 @@ public class SideMenuState implements OrderState{
                 System.out.println(type.getName() + " | W " + type.getPrice());
                 System.out.println("을(를) 장바구니에 추가하시겠습니까? y / n");
                 String yesOrNo = new java.util.Scanner(System.in).next();
+                exitHandler(yesOrNo);
                 if(yesOrNo.equalsIgnoreCase("y")){
                     status.getOrderBuilder().addSide(type);
                     System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");

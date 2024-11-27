@@ -1,17 +1,20 @@
 package Order;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public enum Coupon {
-    COUPON_10("매장주문 10% 할인", (price) -> price * 0.9),
-    COUPON_20("방문포장 20% 할인", (price) -> price * 0.8),
-    COUPON_33("수험생 33% 할인", (price) -> price * 0.67),
-    COUPON_50("군인 50% 할인", (price) -> price * 0.5);
+    COUPON_10(1, "매장주문 10% 할인", (price) -> price * 0.9),
+    COUPON_20(2, "방문포장 20% 할인", (price) -> price * 0.8),
+    COUPON_33(3, "수험생 33% 할인", (price) -> price * 0.67),
+    COUPON_50(4, "군인 50% 할인", (price) -> price * 0.5);
 
+    private int id;
     private final String couponName;
     private final Function<Double, Double> calculation;
 
-    Coupon(String couponName, Function<Double, Double> calculation){
+    Coupon(int id, String couponName, Function<Double, Double> calculation){
+        this.id = id;
         this.couponName = couponName;
         this.calculation = calculation;
     }
@@ -38,5 +41,17 @@ public enum Coupon {
         System.out.println("3. " + COUPON_33.couponName);
         System.out.println("4. " + COUPON_50.couponName);
         System.out.println("5. " + "적용 안함");
+    }
+
+    /**
+     * id가 일치하는 coupon 값 getter
+     * @param input 사용자 입력 int
+     * @return Coupon
+     */
+    public static Coupon getCoupon(int input){
+        return Arrays.stream(Coupon.values())
+                .filter(coupon -> coupon.id == input)
+                .findFirst()
+                .orElse(null);
     }
 }

@@ -4,6 +4,8 @@ import Exception.BadInputException;
 import Menu.Main.MainMenuItem;
 import Menu.Main.MainMenuType;
 
+import static Main.Main.exitHandler;
+
 public class MainMenuState implements OrderState {
 
     private static final MainMenuState instance = new MainMenuState();
@@ -22,32 +24,31 @@ public class MainMenuState implements OrderState {
                 System.out.println("\n\n" + type.getName() + "을(를) 선택했습니다.");
 
                 System.out.println("맵기를 선택하세요");
-                System.out.println("1. 착한맛");
-                System.out.println("2. 초보맛");
-                System.out.println("3. 약간매운맛");
-                System.out.println("4. 보통맛");
-                System.out.println("5. 매운맛");
+                for(int i = 1; i <= 5; i++){
+                    System.out.println(i + ". " + MainMenuItem.getTasteItem(i));
+                }
                 System.out.println("11. 메인 메뉴로 돌아가기");
                 System.out.println("\nexit. 키오스크 종료");
                 System.out.println("\n번호를 입력하세요:");
 
-                int tasteInput = new java.util.Scanner(System.in).nextInt();
+                String tasteInput = new java.util.Scanner(System.in).nextLine();
+                exitHandler(tasteInput);
                 int taste = switch(tasteInput){
-                    case 1 -> 1;
-                    case 2 -> 2;
-                    case 3 -> 3;
-                    case 4 -> 4;
-                    case 5 -> 5;
-                    case 11 -> 11;
-                    case 12 -> 12;
-                    case 13 -> 13;
+                    case "1" -> 1;
+                    case "2" -> 2;
+                    case "3" -> 3;
+                    case "4" -> 4;
+                    case "5" -> 5;
+                    case "11" -> 11;
+                    case "12" -> 12;
+                    case "13" -> 13;
                     default -> throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
                 };
                 if(taste <= 5){
-                    System.out.println(type.getName() + " " + MainMenuItem.getTasteInput(taste) + " | W " + type.getPrice());
+                    System.out.println(type.getName() + " " + MainMenuItem.getTasteItem(taste) + " | W " + type.getPrice());
                     System.out.println("을(를) 장바구니에 추가하시겠습니까? y / n");
                     String yesOrNo = new java.util.Scanner(System.in).next();
-
+                    exitHandler(yesOrNo);
                     if(yesOrNo.equalsIgnoreCase("y")){
                         status.getOrderBuilder().addMain(type, taste);
                         System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");

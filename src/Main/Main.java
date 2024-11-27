@@ -21,17 +21,19 @@ public class Main {
                 //이곳의 input 이 stateHandler 의 input
                 String input = scanner.nextLine();
 
-                //exit 입력시 종료
-                if("exit".equalsIgnoreCase(input)){
-                    System.out.println("키오스크 종료");
-                    break;
-                }
+                exitHandler(input);
 
                 stateHandler.handleInput(input);
             }catch(BadInputException e){
                 throw new BadInputException("에러: " + e);
             }
         }
-        scanner.close();
+    }
+
+    public static void exitHandler(String input){
+        if("exit".equalsIgnoreCase(input)){
+            System.out.println("키오스크 종료");
+            System.exit(0);
+        }
     }
 }

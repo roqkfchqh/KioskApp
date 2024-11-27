@@ -25,6 +25,7 @@ public class PaymentState implements OrderState{
                     TimeUnit.SECONDS.sleep(5);
                     status.setCurrentState(MainMenuState.getInstance());
                 }
+
                 case 2 -> status.setCurrentState(CartState.getInstance());
                 default -> throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
             }

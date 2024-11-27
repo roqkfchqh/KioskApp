@@ -13,7 +13,7 @@ public class StateHandler {
      * orderBuilder 직접 접근용
      * @return 현재 orderBuilder(장바구니)
      */
-    public OrderBuilder getOrderBuilder() {
+    public OrderBuilder getOrderBuilder(){
         return orderBuilder;
     }
 

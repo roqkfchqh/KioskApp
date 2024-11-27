@@ -1,6 +1,7 @@
 package State;
 
 import Exception.BadInputException;
+import Menu.Main.MainMenuItem;
 import Menu.Main.MainMenuType;
 
 public class MainMenuState implements OrderState {
@@ -43,23 +44,38 @@ public class MainMenuState implements OrderState {
                     default -> throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
                 };
                 if(taste <= 5){
-                    status.getOrderBuilder().addMain(type, taste);
-                    System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");
+                    System.out.println(type.getName() + " " + MainMenuItem.getTasteInput(taste) + " | W " + type.getPrice());
+                    System.out.println("을(를) 장바구니에 추가하시겠습니까? y / n");
+                    String yesOrNo = new java.util.Scanner(System.in).next();
+
+                    if(yesOrNo.equalsIgnoreCase("y")){
+                        status.getOrderBuilder().addMain(type, taste);
+                        System.out.println("\n\n장바구니에 메뉴가 추가되었습니다.");
+                    }else if(yesOrNo.equalsIgnoreCase("n")){
+                        status.setCurrentState(MainMenuState.getInstance());
+                        System.out.println("메인메뉴로 돌아갑니다.");
+                    }else{
+                        throw new BadInputException("잘못된 입력입니다.");
+                    }
                 }
+
             }else if(choice == 11){
                 displayMenu(status);
+
             }else if(choice == 12){
                 if(status.isMainEmpty()){
                     status.setCurrentState(MainMenuState.getInstance());
                     throw new BadInputException("메인메뉴 없이 주문할 수 없습니다.");
                 }
                 status.setCurrentState(SideMenuState.getInstance());
+
             }else if(choice == 13){
                 if(status.isMainEmpty()){
                     status.setCurrentState(MainMenuState.getInstance());
                     throw new BadInputException("메인메뉴 없이 장바구니로 갈 수 없습니다.");
                 }
                 status.setCurrentState(CartState.getInstance());
+
             }else{
                 throw new BadInputException("잘못된 입력입니다. 다시 시도해주세요");
             }

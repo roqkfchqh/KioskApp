@@ -34,9 +34,8 @@ public class MainMenuItem{
         return type.getPrice() * quantity;
     }
 
-    //장바구니용 메인메뉴 ui
-    public void displayMain(){
-        String tasteInput = switch(taste){
+    public static String getTasteInput(int taste){
+        return switch(taste){
             case 1 -> "착한맛";
             case 2 -> "초보맛";
             case 3 -> "약간매운맛";
@@ -44,7 +43,11 @@ public class MainMenuItem{
             case 5 -> "매운맛";
             default -> throw new BadInputException("오류");
         };
+    }
 
+    //장바구니용 메인메뉴 ui
+    public void displayMain(){
+        String tasteInput =  getTasteInput(taste);
         System.out.println(type.getName() + " | W " + type.getPrice() + " | " + type.getDescription()
                 + " | " + tasteInput + " | 수량: " + quantity);
     }

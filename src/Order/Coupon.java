@@ -1,6 +1,7 @@
 package Order;
 
 import java.util.Arrays;
+import Exception.BadInputException;
 import java.util.function.Function;
 
 public enum Coupon {
@@ -52,6 +53,6 @@ public enum Coupon {
         return Arrays.stream(Coupon.values())
                 .filter(coupon -> coupon.id == input)
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new BadInputException("존재하지 않는 쿠폰입니다."));
     }
 }
